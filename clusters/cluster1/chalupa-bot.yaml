@@ -2,7 +2,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
   name: chalupa-bot-prod
-  namespace: chalupa-bot-prod
+  namespace: flux-system
 spec:
   interval: 1m0s
   sourceRef:
