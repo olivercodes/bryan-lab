@@ -6,12 +6,6 @@ metadata:
 spec:
   imageRepositoryRef:
     name: chalupa-bot
-  policy:
-    semver:
-      range: 5.0.x
----
-kind: ImagePolicy
-spec:
   filterTags:
    pattern: '.*-rc.*'
   policy:
