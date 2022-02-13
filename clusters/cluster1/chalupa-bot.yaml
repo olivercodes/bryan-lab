@@ -87,7 +87,7 @@ metadata:
   namespace: flux-system
 spec:
   images:
-  - name: chalupa-bot
+  - name: ghcr.io/olivercodes/chalupa-bot
     newTag: v0.0.1
   interval: 1m
   path: "./manifests"
