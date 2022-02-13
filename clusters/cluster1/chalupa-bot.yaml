@@ -34,6 +34,12 @@ metadata:
 spec:
   image: ghcr.io/olivercodes/chalupa-bot
   interval: 30s
+  accessFrom:
+    namespaceSelectors:
+      - matchLabels:
+          kubernetes.io/metadata.name: flux-system
+      - matchLabels:
+          kubernetes.io/metadata.name: chalupa-bot-prod
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
