@@ -33,9 +33,13 @@ spec:
   imageRepositoryRef:
     name: chalupa-bot
     namespace: flux-system
+  filterTags:
+    ## use "pattern: '[a-f0-9]+-(?P<ts>[0-9]+)'" if you copied the workflow example using github.run_number
+    pattern: '^main-[a-f0-9]+-(?P<ts>[0-9]+)'
+    extract: '$ts'
   policy:
-    semver:
-      range: v0.0.x
+    numerical:
+      order: asc
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
