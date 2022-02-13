@@ -2,13 +2,13 @@ apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
   name: chalupa-bot-prod
-  namespace: chalupa-bot-prod
+  namespace: flux-system
 spec:
   interval: 1m0s
   sourceRef:
     kind: GitRepository
     name: chalupa-bot
-    namespace: chalupa-bot-prod
+    namespace: flux-system
   git:
     checkout:
       ref:
@@ -28,7 +28,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
   name: chalupa-bot-prod
-  namespace: chalupa-bot-prod
+  namespace: flux-system
 spec:
   imageRepositoryRef:
     name: chalupa-bot
@@ -41,7 +41,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
   name: chalupa-bot-staging
-  namespace: chalupa-bot-staging
+  namespace: flux-system
 spec:
   imageRepositoryRef:
     name: chalupa-bot
@@ -71,7 +71,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: chalupa-bot
-  namespace: chalupa-bot-prod
+  namespace: flux-system
 spec:
   interval: 1m
   url: https://github.com/olivercodes/chalupa-bot
@@ -82,12 +82,14 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: chalupa-bot
-  namespace: chalupa-bot-prod
+  namespace: flux-system
 spec:
   interval: 1m
   path: "./manifests"
   prune: true
+  targetNamespace: chalupa-bot-prod
   sourceRef:
     kind: GitRepository
     name: chalupa-bot
-    namespace: chalupa-bot-prod
+    namespace: flux-system
+  
