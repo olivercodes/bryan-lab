@@ -74,7 +74,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  url: ssh://git@github.com/olivercodes/chalupa-bot.git
+  url: ssh://git@github.com/olivercodes/chalupa-bot
   secretRef:
     name: flux-system
   ref:
