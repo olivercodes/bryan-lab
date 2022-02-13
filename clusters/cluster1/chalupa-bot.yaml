@@ -76,7 +76,7 @@ spec:
   interval: 1m
   secretRef:
     name: https-github-creds 
-  url: https://github.com/olivercodes/chalupa-bot
+  url: https://github.com/castlewhitehall/some-bs
   ref:
     branch: main
 ---
