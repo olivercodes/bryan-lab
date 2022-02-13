@@ -75,6 +75,8 @@ metadata:
 spec:
   interval: 1m
   url: https://github.com/olivercodes/chalupa-bot.git
+  secretRef:
+    name: flux-system
   ref:
     branch: main
 ---
