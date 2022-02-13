@@ -76,6 +76,7 @@ spec:
   interval: 1m
   secretRef:
     name: https-github-creds
+    namespace: flux-system
   url: https://github.com/olivercodes/chalupa-bot
   ref:
     branch: main
