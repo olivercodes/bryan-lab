@@ -1,4 +1,30 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: chalupa-bot-prod
+  namespace: chalupa-bot-prod
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: chalupa-bot
+    namespace: chalupa-bot-prod
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
+    push:
+      branch: main
+  update:
+    path: ./manifests
+    strategy: Setters
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
   name: chalupa-bot-prod
