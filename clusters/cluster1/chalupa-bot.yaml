@@ -17,6 +17,7 @@ metadata:
 spec:
   interval: 1m
   path: "./manifests"
+  prune: true
   sourceRef:
     kind: GitRepository
     name: chalupa-bot
