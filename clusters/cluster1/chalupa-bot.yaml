@@ -6,6 +6,20 @@ metadata:
 spec:
   imageRepositoryRef:
     name: chalupa-bot
+    namespace: flux-system
+  policy:
+    semver:
+      range: 0.0.x
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: chalupa-bot-staging
+  namespace: chalupa-bot-staging
+spec:
+  imageRepositoryRef:
+    name: chalupa-bot
+    namespace: flux-system
   filterTags:
    pattern: '.*-rc.*'
   policy:
@@ -16,7 +30,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
   name: chalupa-bot
-  namespace: chalupa-bot-prod
+  namespace: flux-system
 spec:
   image: ghcr.io/olivercodes/chalupa-bot
   interval: 30s
