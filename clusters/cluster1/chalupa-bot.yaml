@@ -86,6 +86,9 @@ metadata:
   name: chalupa-bot
   namespace: flux-system
 spec:
+  images:
+  - name: chalupa-bot
+    newTag: v0.0.1
   interval: 1m
   path: "./manifests"
   prune: true
