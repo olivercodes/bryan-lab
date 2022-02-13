@@ -74,9 +74,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  url: https://github.com/olivercodes/chalupa-bot.git
+  url: ssh://git@github.com/olivercodes/chalupa-bot.git
   secretRef:
-    name: https-github-creds
+    name: git-clone
   ref:
     branch: main
 ---
