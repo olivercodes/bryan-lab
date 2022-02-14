@@ -14,7 +14,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: chalupa-bot-config
+  name: chalupa-bot-config-kustomize
   namespace: flux-system
 spec:
   interval: 1m
@@ -26,21 +26,21 @@ spec:
     name: chalupa-bot-config
     namespace: flux-system
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: chalupa-bot-staging
-  namespace: flux-system
-spec:
-  interval: 1m
-  path: "./staging"
-  prune: true
-  targetNamespace: flux-system
-  sourceRef:
-    kind: GitRepository
-    name: chalupa-bot-config
-    namespace: flux-system
----
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: chalupa-bot-staging
+#   namespace: flux-system
+# spec:
+#   interval: 1m
+#   path: "./staging"
+#   prune: true
+#   targetNamespace: flux-system
+#   sourceRef:
+#     kind: GitRepository
+#     name: chalupa-bot-config
+#     namespace: flux-system
+# ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
