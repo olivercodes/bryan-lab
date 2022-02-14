@@ -1,84 +1,11 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageUpdateAutomation
-metadata:
-  name: chalupa-bot-prod
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  sourceRef:
-    kind: GitRepository
-    name: chalupa-bot
-    namespace: flux-system
-  git:
-    checkout:
-      ref:
-        branch: main
-    commit:
-      author:
-        email: fluxcdbot@users.noreply.github.com
-        name: fluxcdbot
-      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
-    push:
-      branch: main
-  update:
-    path: ./manifests
-    strategy: Setters
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImagePolicy
-metadata:
-  name: chalupa-bot-prod
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: chalupa-bot
-    namespace: flux-system
-  filterTags:
-    ## use "pattern: '[a-f0-9]+-(?P<ts>[0-9]+)'" if you copied the workflow example using github.run_number
-    pattern: '^main-[a-f0-9]+-(?P<ts>[0-9]+)'
-    extract: '$ts'
-  policy:
-    numerical:
-      order: asc
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImagePolicy
-metadata:
-  name: chalupa-bot-staging
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: chalupa-bot
-    namespace: flux-system
-  filterTags:
-   pattern: '.*-rc.*'
-  policy:
-    semver:
-      range: '^1.x-0'
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
-metadata:
-  name: chalupa-bot
-  namespace: flux-system
-spec:
-  image: ghcr.io/olivercodes/chalupa-bot
-  interval: 30s
-  accessFrom:
-    namespaceSelectors:
-      - matchLabels:
-          kubernetes.io/metadata.name: flux-system
-      - matchLabels:
-          kubernetes.io/metadata.name: chalupa-bot-prod
----
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: chalupa-bot
+  name: chalupa-bot-config
   namespace: flux-system
 spec:
   interval: 1m
-  url: ssh://git@github.com/olivercodes/chalupa-bot.git
+  url: ssh://git@github.com/olivercodes/chalupa-bot-config.git
   secretRef:
     name: git-clone
   ref:
@@ -87,18 +14,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: chalupa-bot
+  name: chalupa-bot-config
   namespace: flux-system
 spec:
-  images:
-  - name: ghcr.io/olivercodes/chalupa-bot
-    newTag: v0.0.1
   interval: 1m
-  path: "./manifests"
+  path: "./flux-resources"
   prune: true
-  targetNamespace: chalupa-bot-prod
+  targetNamespace: flux-system
   sourceRef:
     kind: GitRepository
-    name: chalupa-bot
+    name: chalupa-bot-config
     namespace: flux-system
   
