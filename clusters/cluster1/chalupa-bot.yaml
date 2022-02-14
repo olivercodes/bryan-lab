@@ -23,7 +23,7 @@ spec:
   targetNamespace: flux-system
   sourceRef:
     kind: GitRepository
-    name: chalupa-bot-config
+    name: chalupa-bot-config-repo
     namespace: flux-system
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
